@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import Test from './components/test.tsx'
+import Base from './layouts/Base';
 
 function App() {
   return (
     <div className="App">
-      <Test />
+      <Base />
     </div>
   );
 }
