@@ -7,13 +7,11 @@ import SideBar from '../layouts/SideBar';
 
 const RouterR = () => {
     return <div>
-        <BrowserRouter>
             <SideBar />
             <Routes>
                 <Route path="/" element={<Accueil />} />
                 <Route path="/home" element={<Home />} />
             </Routes>
-        </BrowserRouter>
     </div>;
 };
 

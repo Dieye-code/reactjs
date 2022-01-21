@@ -1,10 +1,14 @@
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Base from './layouts/Base';
 
 function App() {
   return (
     <div className="App">
-      <Base />
+
+      <BrowserRouter>
+        <Base />
+      </BrowserRouter>
     </div>
   );
 }
