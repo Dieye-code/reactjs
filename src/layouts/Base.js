@@ -1,5 +1,5 @@
 import React from 'react';
-import Accueil from '../components/Accueil';
+import RouterR from '../router/RouterR';
 import Aside from './Aside';
 import Footer from './Footer';
 import Header from './Header';
@@ -9,8 +9,7 @@ const Base = () => {
   return <div>
     <div className="wrapper">
       <Header />
-      <SideBar />
-      <Accueil />
+      <RouterR />
       <Aside />
       <Footer />
     </div>
