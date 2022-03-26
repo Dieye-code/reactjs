@@ -1,10 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { listClientServices } from '../../services/ClientServices';
+import { Button } from 'react-bootstrap';
+import AddClient from './AddClient';
+import LogiqueModal from './LogiqueModal';
 
 function Client() {
 
     var [clients, setClients] = useState([])
+
+
+    const [a, b] = LogiqueModal();
 
     useEffect(() => {
         fetchClients()
@@ -14,6 +19,9 @@ function Client() {
         await axios.get('http://localhost:8000/api/client').then((data) => {
             setClients(data.data);
         });
+
+        // const add = 
+
     }
 
 
@@ -27,6 +35,14 @@ function Client() {
                             <h3 className="page-title">Data Tables</h3> </div>
                     </div>
                 </div>
+
+
+                <AddClient show={a} hide={b} />
+
+                <Button className='mb-3' onClick={b} variant="primary" >
+                    Add Client
+                </Button>
+
 
                 <div className="card">
                     <div className="card-body">
