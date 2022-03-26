@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function SideBar() {
     return (
@@ -8,9 +9,10 @@ function SideBar() {
                     <ul>
                         <li className="active"> <a href="index.html"><i className="fas fa-tachometer-alt"></i> <span>Dashboard</span></a> </li>
                         <li className="list-divider"></li>
-                        <li className="submenu"> <a href="#"><i className="fas fa-suitcase"></i> <span> Booking </span> </a>
-                        </li>
-                        <li className="submenu"> <a href="#"><i className="fas fa-user"></i> <span> Customers </span> </a>
+                        {/* <li className="submenu"> <a href="#"><i className="fas fa-suitcase"></i> <span> Booking </span> </a>
+                        </li> */}
+                        <li className="submenu">
+                            <Link to={'/clients'} ><i className="fas fa-user"></i> <span> Clients </span></Link>
                         </li>
                         <li className="submenu">
                             <a href="#"><i className="fas fa-key"></i> <span> Rooms </span> </a>
@@ -18,7 +20,7 @@ function SideBar() {
                         <li className="submenu"> <a href="#"><i className="fas fa-user"></i> <span> Staff </span> </a>
                         </li>
                         <li> <a href="pricing.html"><i className="far fa-money-bill-alt"></i> <span>Pricing</span></a> </li>
-                        <li className="submenu"> <a href="#"><i className="fas fa-share-alt"></i> <span> Apps </span> </a>
+                        {/* <li className="submenu"> <a href="#"><i className="fas fa-share-alt"></i> <span> Apps </span> </a>
                         </li>
                         <li className="submenu"> <a href="#"><i className="fas fa-user"></i> <span> Employees </span> </a>
                         </li>
@@ -47,7 +49,7 @@ function SideBar() {
                         <li className="submenu"> <a href="#"><i className="fas fa-columns"></i> <span> Pages </span> </a>
                         </li>
                         <li className="submenu"> <a href="#"><i className="fas fa-share-alt"></i> <span> Multi Level </span> </a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
