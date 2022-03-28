@@ -11,7 +11,7 @@ function Client() {
 
     useEffect(() => {
         fetchClients()
-    }, [])
+    }, [show])
 
     const fetchClients = async () => {
         await axios.get('http://localhost:8000/api/client').then((data) => {
@@ -82,7 +82,7 @@ function Client() {
                         <Modal.Title>Ajout Client</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddClient />
+                        <AddClient setShowModal={setShow} />
                     </Modal.Body>
                 </Modal>
             </div>

@@ -1,22 +1,59 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 
-function AddClient() {
+function AddClient({ setShowModal,
+  newClient = { prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueureChemise: 0, longueureManche: 0, longueurePantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 }
+}) {
 
+  /**
+   * Validation du foemulaire
+   */
   const [validated, setValidated] = useState(false);
 
+  /**
+   * Attribut du client
+   */
+  const [client, setClient] = useState(newClient);
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity())
-    {
-      console.log(form);
-    }
+  /**
+   * changement d'un input
+   * @param {any} e 
+   */
+  const onInputChange = (e) => {
+    setClient({ ...client, [e.target.name]: e.target.value })
+  }
+
+
+  /**
+   * Sumission du formulaire
+   * @param {any} event 
+   */
+  const handleSubmit = async (event) => {
 
     event.preventDefault();
     event.stopPropagation();
+    const form = event.currentTarget;
+    if (form.checkValidity())
+    {
+      await axios.post('http://localhost:8000/api/client', client)
+        .then((data) => {
+          if (data.status == 200)
+          {
+            setShowModal(false)
+          } else
+          {
+            console.log(data.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
     setValidated(true);
+
+
   };
 
 
@@ -24,30 +61,37 @@ function AddClient() {
     <>
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="validationPrenom">
+          <Form.Group as={Col} md="6" >
             <Form.Label>Prénom</Form.Label>
             <Form.Control
               required
+              name='prenom'
+              value={client.prenom}
+              onChange={(e) => onInputChange(e)}
               type="text"
               placeholder="Prenom"
-              defaultValue=""
             />
             <Form.Control.Feedback type="invalid">Le prénom du client est obligatoire</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationNom">
+          <Form.Group as={Col} md="6" >
             <Form.Label>Nom</Form.Label>
             <Form.Control
               required
+              name='nom'
+              value={client.nom}
+              onChange={(e) => onInputChange(e)}
               type="text"
               placeholder="Nom"
-              defaultValue=""
             />
             <Form.Control.Feedback type="invalid">Le nom du client est obligatoire</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationTelephone">
+          <Form.Group as={Col} md="6" >
             <Form.Label>Téléphone</Form.Label>
             <Form.Control
               type="text"
+              name='telephone'
+              value={client.telephone}
+              onChange={(e) => onInputChange(e)}
               placeholder="telephone du client"
               required
             />
@@ -55,10 +99,13 @@ function AddClient() {
               le numéro de téléphone du client est obligatoire
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="6" controlId="validationAdresse">
+          <Form.Group as={Col} md="6" >
             <Form.Label>Adresse</Form.Label>
             <Form.Control
               type="text"
+              name='adresse'
+              value={client.adresse}
+              onChange={(e) => onInputChange(e)}
               placeholder="adresse du client"
               required
             />
@@ -70,36 +117,44 @@ function AddClient() {
 
         <Row className="mb-3">
 
-          <Form.Group as={Col} md="3" controlId="validationPoitrine">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Poitrine</Form.Label>
             <Form.Control
+              name='poitrine'
+              value={client.poitrine}
+              onChange={(e) => onInputChange(e)}
               required
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationEpaule">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Epaule</Form.Label>
             <Form.Control
               required
+              name='epaule'
+              value={client.epaule}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationLongueurManche">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Longueure Manche</Form.Label>
             <Form.Control
               required
+              name='longueureManche'
+              value={client.longueureManche}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationLongueureChemise">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Longueure Chemise</Form.Label>
             <Form.Control
               required
+              name='longueureChemise'
+              value={client.longueureChemise}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
 
@@ -107,36 +162,44 @@ function AddClient() {
 
         <Row className="mb-3">
 
-          <Form.Group as={Col} md="3" controlId="validationLongueurePantalon">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Longueure Pantalon</Form.Label>
             <Form.Control
               required
+              name='longueurePantalon'
+              value={client.longueurePantalon}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCuisse">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Cuisse</Form.Label>
             <Form.Control
               required
+              name='cuisse'
+              value={client.cuisse}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationGenou">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Genou</Form.Label>
             <Form.Control
               required
+              name='genou'
+              value={client.genou}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationBas">
+          <Form.Group as={Col} md="3" >
             <Form.Label>Bas</Form.Label>
             <Form.Control
               required
+              name='bas'
+              value={client.bas}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
 
@@ -144,28 +207,34 @@ function AddClient() {
 
         <Row className="mb-3">
 
-          <Form.Group as={Col} md="4" controlId="validationFrappe">
+          <Form.Group as={Col} md="4" >
             <Form.Label>Frappe</Form.Label>
             <Form.Control
               required
+              name='frappe'
+              value={client.frappe}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCou">
+          <Form.Group as={Col} md="4" >
             <Form.Label>Cou</Form.Label>
             <Form.Control
               required
+              name='cou'
+              value={client.cou}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCeinture">
+          <Form.Group as={Col} md="4" >
             <Form.Label>Ceinture</Form.Label>
             <Form.Control
               required
+              name='ceinture'
+              value={client.ceinture}
+              onChange={(e) => onInputChange(e)}
               type="number"
-              defaultValue="0"
             />
           </Form.Group>
 
