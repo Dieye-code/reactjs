@@ -6,15 +6,12 @@ import Accueil from '../components/Accueil';
 import Client from '../components/client/Client';
 
 const RouterR = () => {
-    return <div>
-            <Routes>
-                <Route path="/" element={<Accueil />} />
-                <Route path="/clients" element={<Client />} />
-                <Route path="/" element={<Accueil />} />
-                <Route path="/" element={<Accueil />} />
-                <Route path="/" element={<Accueil />} />
-            </Routes>
-    </div>;
+    return <>
+        <Routes>
+            <Route path="/" element={<Accueil />} />
+            <Route path="/clients" element={<Client />} />
+        </Routes>
+    </>;
 };
 
 export default RouterR;

@@ -40,7 +40,7 @@ function Client() {
                 <div className="card">
                     <div className="card-body">
                         <div className="table-responsive">
-                            <table className="datatable table table-stripped">
+                            <table className="datatable table table-stripped table table-hover table-center mb-0">
                                 <thead>
                                     <tr>
                                         <th>Prenom</th>
