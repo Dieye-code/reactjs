@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import AddClient from './AddClient';
+import ViewClient from './ViewClient'
 
 function Client() {
 
     var [clients, setClients] = useState([])
 
     const [show, setShow] = useState(false);
+    const [show1, setShow1] = useState(false);
     /**
      * Attribut du client
      */
@@ -20,7 +22,7 @@ function Client() {
         document.body.appendChild(baliseScript);
         setCli({ prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueurChemise: 0, longueurManche: 0, longueurPantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 })
 
-    }, [show])
+    }, [show, show1])
 
     const fetchClients = async () => {
         await axios.get('http://localhost:8000/api/client').then((data) => {
@@ -33,8 +35,15 @@ function Client() {
         setShow(true)
     }
 
+    const editClient = (c) => {
+        setCli(c);
+        setShow1(true)
+    }
+
     const handleShow = () => setShow(true);
     const handleHide = () => setShow(false);
+
+    const handleHide1 = () => setShow1(false);
 
 
 
@@ -78,7 +87,9 @@ function Client() {
                                                         <span className='text-primary btn' onClick={() => {
                                                             changeClient(value)
                                                         }}><i className="fas fa-pencil-alt m-r-5"></i></span>
-                                                        <span className='text-primary btn'><i className="fas fa-eye m-r-5"></i></span>
+                                                        <span className='text-primary btn' onClick={() => {
+                                                            editClient(value)
+                                                        }}><i className="fas fa-eye m-r-5"></i></span>
                                                         <span className='text-danger btn'><i className="fas fa-trash-alt m-r-5"></i></span>
 
                                                     </td>
@@ -106,6 +117,21 @@ function Client() {
                     </Modal.Header>
                     <Modal.Body>
                         <AddClient setShowModal={setShow} newClient={cli} />
+                    </Modal.Body>
+                </Modal>
+                <Modal
+                    show={show1}
+                    onHide={handleHide1}
+                    backdrop="static"
+                    keyboard={false}
+                    centered
+                    size='lg'
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Detail Client</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <ViewClient newClient={cli} />
                     </Modal.Body>
                 </Modal>
             </div>

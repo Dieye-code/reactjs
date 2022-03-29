@@ -156,7 +156,7 @@ function AddClient({ setShowModal,
             />
           </Form.Group>
           <Form.Group as={Col} md="3" >
-            <Form.Label>Longueure Manche</Form.Label>
+            <Form.Label>Longueur Manche</Form.Label>
             <Form.Control
               required
               name='longueurManche'
@@ -166,7 +166,7 @@ function AddClient({ setShowModal,
             />
           </Form.Group>
           <Form.Group as={Col} md="3" >
-            <Form.Label>Longueure Chemise</Form.Label>
+            <Form.Label>Longueur Chemise</Form.Label>
             <Form.Control
               required
               name='longueurChemise'
@@ -181,7 +181,7 @@ function AddClient({ setShowModal,
         <Row className="mb-3">
 
           <Form.Group as={Col} md="3" >
-            <Form.Label>Longueure Pantalon</Form.Label>
+            <Form.Label>Longueur Pantalon</Form.Label>
             <Form.Control
               required
               name='longueurPantalon'
