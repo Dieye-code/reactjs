@@ -20,6 +20,14 @@ function SideBar() {
                         <li className="submenu"> <a href="#"><i className="fas fa-user"></i> <span> Staff </span> </a>
                         </li>
                         <li> <a href="pricing.html"><i className="far fa-money-bill-alt"></i> <span>Pricing</span></a> </li>
+
+                        <li className="submenu"> <a href="#"><i className="fas fa-suitcase"></i> <span> Booking </span> <span className="menu-arrow"></span></a>
+                            <ul className="submenu_class" style={{ display: "none" }}>
+                                <li><a href="all-booking.html"> All Booking </a></li>
+                                <li><a href="edit-booking.html"> Edit Booking </a></li>
+                                <li><a href="add-booking.html"> Add Booking </a></li>
+                            </ul>
+                        </li>
                         {/* <li className="submenu"> <a href="#"><i className="fas fa-share-alt"></i> <span> Apps </span> </a>
                         </li>
                         <li className="submenu"> <a href="#"><i className="fas fa-user"></i> <span> Employees </span> </a>

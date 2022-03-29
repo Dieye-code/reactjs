@@ -11,6 +11,10 @@ function Client() {
 
     useEffect(() => {
         fetchClients()
+        const baliseScript = document.createElement("script")
+        baliseScript.src = "/assets/js/script.js"
+        document.body.appendChild(baliseScript)
+
     }, [show])
 
     const fetchClients = async () => {
