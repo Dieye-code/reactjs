@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap';
+import swal from 'sweetalert';
 import AddClient from './AddClient';
 import ViewClient from './ViewClient'
 
@@ -33,6 +34,39 @@ function Client() {
     const changeClient = (c) => {
         setCli(c);
         setShow(true)
+    }
+
+    const deleteClient = (c) => {
+        swal({
+            title: "Voulez-vous supprimer ce client?",
+            icon: "error",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete)
+                {
+                    axios.delete('http://localhost:8000/api/client/' + c.id).then((response) => {
+                        if (response.status === 200)
+                        {
+                            swal("Le Client a été bien supprimer", {
+                                icon: "success",
+                            });
+                            fetchClients();
+                        } else
+                        {
+                            swal("Erreur lors de la suppression du client", {
+                                icon: "error",
+                            });
+                        }
+                    }).catch((error) => {
+
+                        swal("Erreur au niveau du serveur", {
+                            icon: "error",
+                        });
+                    })
+                }
+            });
     }
 
     const editClient = (c) => {
@@ -90,7 +124,9 @@ function Client() {
                                                         <span className='text-primary btn' onClick={() => {
                                                             editClient(value)
                                                         }}><i className="fas fa-eye m-r-5"></i></span>
-                                                        <span className='text-danger btn'><i className="fas fa-trash-alt m-r-5"></i></span>
+                                                        <span className='text-danger btn' onClick={() => {
+                                                            deleteClient(value)
+                                                        }}><i className="fas fa-trash-alt m-r-5"></i></span>
 
                                                     </td>
                                                 </tr>
