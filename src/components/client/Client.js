@@ -8,12 +8,17 @@ function Client() {
     var [clients, setClients] = useState([])
 
     const [show, setShow] = useState(false);
+    /**
+     * Attribut du client
+     */
+    const [cli, setCli] = useState({ prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueurChemise: 0, longueurManche: 0, longueurPantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 });
 
     useEffect(() => {
         fetchClients()
         const baliseScript = document.createElement("script")
         baliseScript.src = "/assets/js/script.js"
-        document.body.appendChild(baliseScript)
+        document.body.appendChild(baliseScript);
+        setCli({ prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueurChemise: 0, longueurManche: 0, longueurPantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 })
 
     }, [show])
 
@@ -21,6 +26,11 @@ function Client() {
         await axios.get('http://localhost:8000/api/client').then((data) => {
             setClients(data.data);
         });
+    }
+
+    const changeClient = (c) => {
+        setCli(c);
+        setShow(true)
     }
 
     const handleShow = () => setShow(true);
@@ -51,6 +61,7 @@ function Client() {
                                         <th>Nom</th>
                                         <th>Téléphone</th>
                                         <th>Adresse</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,6 +74,14 @@ function Client() {
                                                     <td>{value.nom}</td>
                                                     <td>{value.telephone}</td>
                                                     <td>{value.adresse}</td>
+                                                    <td>
+                                                        <span className='text-primary btn' onClick={() => {
+                                                            changeClient(value)
+                                                        }}><i className="fas fa-pencil-alt m-r-5"></i></span>
+                                                        <span className='text-primary btn'><i className="fas fa-eye m-r-5"></i></span>
+                                                        <span className='text-danger btn'><i className="fas fa-trash-alt m-r-5"></i></span>
+
+                                                    </td>
                                                 </tr>
                                             ))
                                         )
@@ -86,7 +105,7 @@ function Client() {
                         <Modal.Title>Ajout Client</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddClient setShowModal={setShow} />
+                        <AddClient setShowModal={setShow} newClient={cli} />
                     </Modal.Body>
                 </Modal>
             </div>

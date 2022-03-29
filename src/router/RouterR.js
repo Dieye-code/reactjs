@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { Link, Router, Route, Routes, BrowserRouter } from 'react-router-dom'
-import Home from '../components/Home';
+import {  Route, Routes} from 'react-router-dom'
 import Accueil from '../components/Accueil';
 import Client from '../components/client/Client';
 

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Button, Col, Form, Row } from 'react-bootstrap';
 
 function AddClient({ setShowModal,
-  newClient = { prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueureChemise: 0, longueureManche: 0, longueurePantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 }
+  newClient = { prenom: "", nom: "", telephone: "", adresse: "", poitrine: 0, epaule: 0, longueurChemise: 0, longueurManche: 0, longueurPantalon: 0, genou: 0, bas: 0, frappe: 0, cou: 0, ceinture: 0, cuisse: 0 }
 }) {
 
   /**
@@ -36,19 +36,37 @@ function AddClient({ setShowModal,
     const form = event.currentTarget;
     if (form.checkValidity())
     {
-      await axios.post('http://localhost:8000/api/client', client)
-        .then((data) => {
-          if (data.status == 200)
-          {
-            setShowModal(false)
-          } else
-          {
-            console.log(data.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (client.id == undefined)
+      {
+        await axios.post('http://localhost:8000/api/client', client)
+          .then((data) => {
+            if (data.status === 200)
+            {
+              setShowModal(false)
+            } else
+            {
+              console.log(data.data);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else
+      {
+        await axios.post('http://localhost:8000/api/client/'+client.id, client)
+          .then((data) => {
+            if (data.status === 200)
+            {
+              setShowModal(false)
+            } else
+            {
+              console.log(data.data);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
 
     setValidated(true);
@@ -141,8 +159,8 @@ function AddClient({ setShowModal,
             <Form.Label>Longueure Manche</Form.Label>
             <Form.Control
               required
-              name='longueureManche'
-              value={client.longueureManche}
+              name='longueurManche'
+              value={client.longueurManche}
               onChange={(e) => onInputChange(e)}
               type="number"
             />
@@ -151,8 +169,8 @@ function AddClient({ setShowModal,
             <Form.Label>Longueure Chemise</Form.Label>
             <Form.Control
               required
-              name='longueureChemise'
-              value={client.longueureChemise}
+              name='longueurChemise'
+              value={client.longueurChemise}
               onChange={(e) => onInputChange(e)}
               type="number"
             />
@@ -166,8 +184,8 @@ function AddClient({ setShowModal,
             <Form.Label>Longueure Pantalon</Form.Label>
             <Form.Control
               required
-              name='longueurePantalon'
-              value={client.longueurePantalon}
+              name='longueurPantalon'
+              value={client.longueurPantalon}
               onChange={(e) => onInputChange(e)}
               type="number"
             />
